@@ -1,0 +1,83 @@
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  &__top {
+    @extend .flex-between;
+    border-bottom: 1px solid $border-color;
+    padding: 16px 0;
+  }
+  &__top-location {
+    @extend .flex-between;
+    gap: 8px;
+  }
+  &__top-options {
+    @extend .flex-between;
+    gap: 20px;
+    select {
+      border: 1px solid white;
+    }
+    a {
+      &::before {
+        content: '|';
+        padding-right: 20px;
+      }
+    }
+  }
+  &__logo {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+  &__content {
+    padding: 27.5px 0;
+    @extend .flex-between;
+  }
+  &__user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .cart-icon {
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      &::before {
+        content: '|';
+        color: transparent;
+        width: 1px;
+        background: lightgrey;
+      }
+      .icon {
+        position: relative;
+      }
+      .length {
+        position: absolute;
+        background: $hard-primary;
+        padding: 3.5px 8px;
+        font-weight: 500;
+        color: white;
+        font-size: 10px;
+        border-radius: 50%;
+        top: -6px;
+        right: -2px;
+      }
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: 12px;
+        line-height: 1.2;
+      }
+      .total {
+        font-weight: 500;
+        font-size: 14px;
+      }
+    }
+  }
+}
