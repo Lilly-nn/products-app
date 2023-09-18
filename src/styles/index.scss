@@ -10,3 +10,126 @@
   max-width: 1300px;
   margin: 0 auto;
 }
+
+.home__nav {
+  color: rgb(107 114 128 / 1);
+  background-color: rgb(17 24 39 / 1);
+
+  display: flex;
+  align-items: center;
+  .btn {
+    background: $primary;
+    padding: 16px;
+  }
+  select {
+    background-color: rgb(17 24 39 / 1);
+    border: 1px solid rgb(17 24 39 / 1);
+  }
+  svg {
+    color: white;
+  }
+  .tel {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 16px;
+  }
+}
+
+.home__main-slide {
+  margin-top: 24px;
+  margin-bottom: 60px;
+}
+
+.home__main-categories {
+  border: 2px solid lightgray;
+  max-width: 300px;
+  max-height: 560px;
+  height: fit-content;
+  overflow: hidden;
+  width: 20%;
+  a {
+    display: block;
+  }
+  &.scroll {
+    overflow-y: scroll;
+  }
+  .category {
+    padding: 16px 20px;
+    text-transform: capitalize;
+    &:hover {
+      background: $primary;
+      color: white;
+    }
+  }
+  button {
+    width: 100%;
+    padding: 16px 20px;
+    border-top: 2px solid lightgray;
+  }
+}
+
+.home__main-categories::-webkit-scrollbar {
+  width: 0px;
+}
+
+.home__main-banner {
+  background: url(../../public/assets/banner.jpg) no-repeat;
+  background-size: cover;
+  height: 560px;
+  width: 80%;
+}
+
+.home__main-options {
+  display: flex;
+  justify-content: space-between;
+
+  border-bottom: 1px solid lightgray;
+
+  .option {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    padding-bottom: 38px;
+    .icon {
+      border-radius: 50%;
+      padding: 16px;
+      background: var(--gren-gray-scale-50, #edf2ee);
+    }
+    .title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .description {
+      color: var(--gray-scale-gray-400, #999);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+    }
+  }
+}
+
+.btn__shop-now {
+  padding: 16px 40px;
+  background: $primary;
+  color: white;
+  border-radius: 43px;
+  width: fit-content;
+  display: flex;
+  gap: 16px;
+  transition: all 0.2s linear;
+  align-items: center;
+  svg {
+    fill: white;
+  }
+  &:hover {
+    background-color: white;
+    color: $primary;
+    svg {
+      fill: $primary;
+    }
+  }
+}
