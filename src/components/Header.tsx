@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import mapSvg from '../../public/assets/Map Pin.svg';
@@ -6,8 +7,10 @@ import likeSvg from '../../public/assets/Heart.svg';
 import bagSvg from '../../public/assets/Bag.svg';
 import Link from 'next/link';
 import SearchInput from './SearchInput';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 export default function Header() {
+  const { totalItemsAmount } = useTypedSelector((state) => state.cart);
   return (
     <header className='header'>
       <div className='header__container container'>
@@ -43,7 +46,7 @@ export default function Header() {
             <Link href='/cart' className='cart-icon__content'>
               <div className='icon'>
                 <Image src={bagSvg} width={32} height={32} alt='bag' />
-                <span className='length'>1</span>
+                <span className='length'>{totalItemsAmount}</span>
               </div>
               <div className='cart-icon__info'>
                 <span className='title'>Shopping cart:</span>
