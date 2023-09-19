@@ -10,8 +10,8 @@ export default function AsideCategories() {
   return (
     <div className={`home__main-categories ${limit > 10 ? 'scroll' : ''}`}>
       {categories.slice(0, limit).map((category) => (
-        <Link href={`/${category}`} className='category' key={category}>
-          {category.split('-').join(' ')}
+        <Link href={`/${category.title}`} className='category' key={category.title}>
+          {category.title.split('-').join(' ')}
         </Link>
       ))}
       {limit < 10 ? (

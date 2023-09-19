@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import telImg from '../../public/assets/PhoneCall 1.svg';
 import menuIcon from '../../public/assets/menu 1.svg';
+import Categories from '@/components/Categories';
 
 export default function Home() {
   return (
@@ -100,6 +101,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Categories />
     </main>
   );
 }
