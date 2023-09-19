@@ -6,16 +6,16 @@ export default function ArrowSvg() {
       <path
         d='M16 7.00055H1'
         stroke='currentColor'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M9.94995 0.975525L16 6.99953L9.94995 13.0245'
         stroke='currentColor'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   );

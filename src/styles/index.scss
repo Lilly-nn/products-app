@@ -2,6 +2,7 @@
 @import '../styles/normalize/reset.css';
 @import '../styles/general/variables.scss';
 @import '../styles/sections/header.scss';
+@import '../styles/sections/categories.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,6 +35,26 @@
     align-items: center;
     gap: 5px;
     margin-right: 16px;
+    // img {
+    //   animation-name: ringTel;
+    //   animation-duration: 0.8s;
+    //   animation-iteration-count: infinite;
+    // }
+  }
+}
+
+@keyframes ringTel {
+  0% {
+    transform: rotate(-5deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+  100% {
+    transform: rotate(-5deg);
   }
 }
 
