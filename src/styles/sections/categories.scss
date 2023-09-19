@@ -8,9 +8,9 @@
   }
   .category-card {
     padding: 16px 5px 25px;
-    border: 1px solid lightgray;
+    border: 2px solid lightgray;
     &.active {
-      border: 1px solid $primary;
+      border: 2px solid $primary;
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
     img {
@@ -19,7 +19,7 @@
       object-fit: contain;
     }
     &:hover {
-      border: 1px solid $primary;
+      border: 2px solid $primary;
     }
   }
 }
