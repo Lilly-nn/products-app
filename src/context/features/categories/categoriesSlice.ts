@@ -5,7 +5,7 @@ type CategoriesState = {
 }
 
 const initialState: CategoriesState = {
-    chosenCategory: ''
+    chosenCategory: 'groceries'
 }
 
 const categoriesSlice = createSlice({
