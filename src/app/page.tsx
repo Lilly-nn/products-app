@@ -1,4 +1,4 @@
-import AsideCategories from '@/components/AsideCategories';
+import AsideCategories from '@/components/home-page/AsideCategories';
 import BagSvg from '@/components/UI/BagSvg';
 import HeadPhonesSvg from '@/components/UI/HeadPhonesSvg';
 import PackageSvg from '@/components/UI/PackageSvg';
@@ -8,8 +8,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import telImg from '../../public/assets/PhoneCall 1.svg';
 import menuIcon from '../../public/assets/menu 1.svg';
-import Categories from '@/components/Categories';
-import ProductsSection from '@/components/ProductsSection';
+import Categories from '@/components/home-page/Categories';
+import ProductsSection from '@/components/home-page/ProductsSection';
+import { members } from '@/info/team';
+import MembersSection from '@/components/home-page/MembersSection';
 
 export default function Home() {
   return (
@@ -104,6 +106,7 @@ export default function Home() {
       </section>
       <Categories />
       <ProductsSection />
+      <MembersSection />
     </main>
   );
 }

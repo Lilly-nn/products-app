@@ -5,10 +5,10 @@ import { ProductType } from '@/types/productsType';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import CartSvg from './UI/CartSvg';
+import CartSvg from '../UI/CartSvg';
 import MiniCardSection from './MiniCardSection';
-import LikeSvg from './UI/LikeSvg';
-import ProductCard from './ProductCard';
+import LikeSvg from '../UI/LikeSvg';
+import ProductCard from '../ProductCard';
 
 export default function ProductsSection() {
   const { chosenCategory } = useTypedSelector((state) => state.category);

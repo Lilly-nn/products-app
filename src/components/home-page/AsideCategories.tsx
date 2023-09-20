@@ -1,7 +1,7 @@
 'use client';
 import { categories } from '@/info/categories';
 import React, { useState } from 'react';
-import plusSvg from '../../public/assets/plus-solid 1.svg';
+import plusSvg from '../../../public/assets/plus-solid 1.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 

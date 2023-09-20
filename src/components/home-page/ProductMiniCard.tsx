@@ -2,8 +2,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import CartSvg from './UI/CartSvg';
-import LikeSvg from './UI/LikeSvg';
+import CartSvg from '../UI/CartSvg';
+import LikeSvg from '../UI/LikeSvg';
 
 export default function ProductMiniCard({ ...product }) {
   const [isLiked, setIsLiked] = useState(false);
