@@ -3,6 +3,7 @@ import '../styles/index.scss';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import Providers from '@/components/Providers';
+import Footer from '@/components/Footer';
 
 const mainFont = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

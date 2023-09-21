@@ -6,6 +6,7 @@
 @import '../styles/sections/products.scss';
 @import '../styles/sections/members.scss';
 @import '../styles/sections/testimonials.scss';
+@import '../styles/sections/footer.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,6 +34,11 @@
   }
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
 .home__nav {
   color: rgb(107 114 128 / 1);
   background-color: rgb(17 24 39 / 1);

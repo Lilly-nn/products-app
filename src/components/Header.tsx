@@ -34,7 +34,7 @@ export default function Header() {
           </div>
         </div>
         <div className='header__content'>
-          <Link href='/' className='header__logo'>
+          <Link href='/' className='header__logo logo'>
             <Image src={logoImg} height={32} width={32} alt='logo' />
             <span className='logo font-medium text-[38px]'>Ecobazar</span>
           </Link>

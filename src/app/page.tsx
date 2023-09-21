@@ -111,9 +111,6 @@ export default function Home() {
       <MembersSection />
       <ClientFeedback />
       <HomeBrands />
-      <div className='home__footer'>
-        <p>footer</p>
-      </div>
     </main>
   );
 }

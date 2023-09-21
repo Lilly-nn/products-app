@@ -27,11 +27,7 @@
       }
     }
   }
-  &__logo {
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-  }
+
   &__content {
     padding: 27.5px 0;
     @extend .flex-between;
