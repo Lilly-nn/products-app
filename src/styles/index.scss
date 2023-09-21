@@ -5,6 +5,7 @@
 @import '../styles/sections/categories.scss';
 @import '../styles/sections/products.scss';
 @import '../styles/sections/members.scss';
+@import '../styles/sections/testimonials.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -176,5 +177,29 @@
     svg {
       fill: $primary;
     }
+  }
+}
+
+.home__brands {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px 0;
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px;
+    width: 100%;
+  }
+}
+
+.home__brand {
+  display: flex;
+  &:not(:last-child)::after {
+    content: '';
+    width: 1px;
+    display: block;
+    height: 30px;
+    background: lightgray;
+    margin-left: 68px;
   }
 }

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function MembersSection() {
   return (
-    <section className='home__products'>
+    <section className='home__members'>
       <div className='section__header'>
         <h6 className='subtitle'>Team</h6>
         <h4 className='title'>Our Professional Members</h4>
@@ -55,11 +55,9 @@ export default function MembersSection() {
                   </Link>
                 </div>
               </div>
-
-              <span className='member__title'>{member.name}</span>
-              <p className='member__job'>{member.job}</p>
-              <div>
-                <Image src={objj} alt='fd' />
+              <div className='member__info'>
+                <span className='member__title'>{member.name}</span>
+                <p className='member__job'>{member.job}</p>
               </div>
             </div>
           ))}

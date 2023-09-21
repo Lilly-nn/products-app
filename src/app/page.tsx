@@ -12,6 +12,8 @@ import Categories from '@/components/home-page/Categories';
 import ProductsSection from '@/components/home-page/ProductsSection';
 import { members } from '@/info/team';
 import MembersSection from '@/components/home-page/MembersSection';
+import ClientFeedback from '@/components/home-page/ClientFeedback';
+import HomeBrands from '@/components/home-page/HomeBrands';
 
 export default function Home() {
   return (
@@ -107,6 +109,11 @@ export default function Home() {
       <Categories />
       <ProductsSection />
       <MembersSection />
+      <ClientFeedback />
+      <HomeBrands />
+      <div className='home__footer'>
+        <p>footer</p>
+      </div>
     </main>
   );
 }

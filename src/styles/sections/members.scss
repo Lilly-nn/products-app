@@ -7,6 +7,7 @@
 }
 
 .member {
+  border: 1px solid lightgray;
   &__img {
     width: 312px;
     min-height: 280px;
@@ -14,11 +15,6 @@
   }
   &__img-mask {
     position: relative;
-    &:hover {
-      .member__social {
-        display: flex;
-      }
-    }
   }
   &__social {
     display: none;
@@ -43,8 +39,10 @@
       }
     }
   }
+  &__info {
+    padding: 20px;
+  }
   &__title {
-    margin-top: 16px;
     display: inline-block;
     color: #1a1a1a;
     font-size: 18px;
@@ -57,8 +55,12 @@
     font-weight: 400;
   }
   &:hover {
+    .member__social {
+      display: flex;
+    }
     .member__img {
       filter: brightness(80%);
     }
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 }
