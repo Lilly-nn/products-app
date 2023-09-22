@@ -5,14 +5,22 @@ import React, { useState } from 'react';
 import LikeSvg from './UI/LikeSvg';
 import CartSvg from './UI/CartSvg';
 import { ProductType } from '@/types/productsType';
+import Stars from './UI/Stars';
 import { calculateRating } from '@/utils/calculateRating';
 
 export default function ProductCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
+  const [isAddedToBag, setIsAddedToBag] = useState(false);
+  const stars = calculateRating(product.rating);
 
   function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsLiked(!isLiked);
+  }
+
+  function addToCard(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
+    setIsAddedToBag(!isAddedToBag);
   }
 
   return (
@@ -32,9 +40,11 @@ export default function ProductCard({ ...product }: ProductType) {
         <div className='flex flex-col gap-y-[6px]'>
           <span className='product__title'>{product.title}</span>
           <span className='product__price'>${product.price}</span>
-          <div className='product__rating'>{calculateRating(product.rating)}</div>
+          <div className='product__rating'>
+            <Stars stars={stars} />
+          </div>
         </div>
-        <div className='svg'>
+        <div className={`${isAddedToBag ? 'active' : ''} svg`} onClick={addToCard}>
           <CartSvg />
         </div>
       </div>

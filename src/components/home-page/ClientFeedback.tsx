@@ -1,6 +1,7 @@
 import { feedbacks } from '@/info/feedback';
 import { calculateRating } from '@/utils/calculateRating';
 import Image from 'next/image';
+import Stars from '../UI/Stars';
 
 export default function ClientFeedback() {
   return (
@@ -30,7 +31,9 @@ export default function ClientFeedback() {
                     <p className='feedback__role'>Customer</p>
                   </div>
                 </div>
-                <div className='feedback__rating'> {calculateRating(feedback.rating)}</div>
+                <div className='feedback__rating'>
+                  <Stars stars={calculateRating(feedback.rating)} />
+                </div>
               </div>
             </div>
           ))}

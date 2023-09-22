@@ -88,7 +88,7 @@ export default function Footer() {
                 <h6 className='link__title'>{link.sectionTitle}</h6>
                 <div className='link__container'>
                   {link.links.map((el) => (
-                    <Link className='link' key={el.path} href={el.path}>
+                    <Link className='link' key={el.title} href={el.path}>
                       {el.title}
                     </Link>
                   ))}

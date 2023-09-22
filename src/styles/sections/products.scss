@@ -103,7 +103,11 @@
       position: absolute;
       right: 16px;
       bottom: 20px;
-      &:hover {
+      &.active {
+        color: $primary;
+        background: #fff;
+      }
+      &:hover:not(.active) {
         background: $primary;
         color: white;
       }

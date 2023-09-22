@@ -141,11 +141,12 @@
       border-radius: 5px;
       background: #fff;
       padding: 10px;
+      border: 2px solid transparent;
       span {
         display: block;
       }
       &:hover {
-        opacity: 60%;
+        border: 2px solid lightslategray;
       }
     }
     .button-text {

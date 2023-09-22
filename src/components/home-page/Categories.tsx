@@ -8,7 +8,6 @@ import { changeCategory } from '@/context/features/categories/categoriesSlice';
 export default function Categories() {
   const { chosenCategory } = useTypedSelector((state) => state.category);
   const dispatch = useDispatch();
-  console.log(chosenCategory);
   return (
     <section className='home__categories'>
       <div className='section__header'>

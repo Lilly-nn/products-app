@@ -2,13 +2,9 @@
 import { FetchService } from '@/API/services/FetchService';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { ProductType } from '@/types/productsType';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import CartSvg from '../UI/CartSvg';
-import MiniCardSection from './MiniCardSection';
-import LikeSvg from '../UI/LikeSvg';
 import ProductCard from '../ProductCard';
+import MiniCardSection from './MiniCardSection';
 
 export default function ProductsSection() {
   const { chosenCategory } = useTypedSelector((state) => state.category);

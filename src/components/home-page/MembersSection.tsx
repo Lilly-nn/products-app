@@ -1,6 +1,5 @@
 import { members } from '@/info/team';
 import Image from 'next/image';
-import objj from '../../../public/assets/social-media/instagram 1.svg';
 import Link from 'next/link';
 
 export default function MembersSection() {

@@ -10,7 +10,7 @@ import SearchInput from './SearchInput';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 export default function Header() {
-  const { totalItemsAmount } = useTypedSelector((state) => state.cart);
+  const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
   return (
     <header className='header'>
       <div className='header__container container'>
@@ -50,7 +50,7 @@ export default function Header() {
               </div>
               <div className='cart-icon__info'>
                 <span className='title'>Shopping cart:</span>
-                <span className='total'>$57.00</span>
+                <span className='total'>${totalPrice}</span>
               </div>
             </Link>
           </div>
