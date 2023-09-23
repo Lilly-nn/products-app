@@ -1,5 +1,17 @@
 import styles from './Button.module.scss';
 
-export default function Button({ value, type }: { value: string; type: string }) {
-  return <button className={styles.button}>{value}</button>;
+export default function Button({
+  value,
+  type,
+  disabled,
+}: {
+  value: string;
+  type: string;
+  disabled?: boolean;
+}) {
+  return (
+    <button disabled={disabled} className={styles.button}>
+      {value}
+    </button>
+  );
 }

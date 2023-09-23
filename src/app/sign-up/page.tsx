@@ -12,7 +12,7 @@ export default function SignUpPage() {
       <div className='authorize__content'>
         <h4 className='authorize__title'>{page === 'login' ? 'sign in' : 'create account'}</h4>
         {page === 'login' ? <SignInSection /> : <RegisterSection />}
-        <Button type='submit' value={page === 'login' ? 'Login' : 'Create account'} />
+
         <div className='authorize__options'>
           {page === 'login' ? (
             <p>

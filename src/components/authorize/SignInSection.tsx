@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import AuthorizeInput from '../inputs/AuthorizeInputs';
 import Link from 'next/link';
+import Button from '../UI/button/Button';
 
 export default function SignInSection() {
   const [email, setEmail] = useState('');
@@ -21,6 +22,7 @@ export default function SignInSection() {
         setValue={setPassword}
         placeholder='Password'
       />
+
       <div className='flex justify-between mt-4 text-sm'>
         <label className='flex items-center cursor-pointer'>
           <input
@@ -35,6 +37,7 @@ export default function SignInSection() {
         </label>
         <Link href='/forgot-password'>Forgot Password</Link>
       </div>
+      <Button type='submit' value='Login' />
     </form>
   );
 }

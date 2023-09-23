@@ -10,4 +10,8 @@
   &:hover {
     background: darken(#00b207, 10%);
   }
+  &:disabled {
+    background: darken(#00b207, 10%);
+    color: lightgrey;
+  }
 }
