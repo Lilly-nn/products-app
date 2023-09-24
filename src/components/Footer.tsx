@@ -9,6 +9,10 @@ import Visa from '@/../public/assets/payment/visa-logo.svg';
 import Discover from '@/../public/assets/payment/Discover.svg';
 import Secure from '@/../public/assets/payment/lock.svg';
 import MasterCard from '@/../public/assets/payment/Mastercard.svg';
+import FacebookSvg from '@/../public/assets/social-media/facebook 1.svg';
+import InstagramSvg from '@/../public/assets/social-media/instagram 1.svg';
+import PinterestSvg from '@/../public/assets/social-media/pinterest.svg';
+import TwitterSvg from '@/../public/assets/social-media/twitter 1.svg';
 
 export default function Footer() {
   return (
@@ -31,36 +35,16 @@ export default function Footer() {
             </div>
             <div className='subscribe__social'>
               <Link href='/' className='icon'>
-                <Image
-                  src='assets/social-media/facebook 1.svg'
-                  width={20}
-                  height={20}
-                  alt='facebook icon'
-                />
+                <Image src={FacebookSvg} width={20} height={20} alt='facebook icon' />
               </Link>
               <Link href='/' className='icon'>
-                <Image
-                  src='assets/social-media/twitter 1.svg'
-                  width={20}
-                  height={20}
-                  alt='twitter icon'
-                />
+                <Image src={TwitterSvg} width={20} height={20} alt='twitter icon' />
               </Link>
               <Link href='/' className='icon'>
-                <Image
-                  src='assets/social-media/pinterest.svg'
-                  width={20}
-                  height={20}
-                  alt='pinterest icon'
-                />
+                <Image src={PinterestSvg} width={20} height={20} alt='pinterest icon' />
               </Link>
               <Link href='/' className='icon'>
-                <Image
-                  src='assets/social-media/instagram 1.svg'
-                  width={20}
-                  height={20}
-                  alt='instagram icon'
-                />
+                <Image src={InstagramSvg} width={20} height={20} alt='instagram icon' />
               </Link>
             </div>
           </div>

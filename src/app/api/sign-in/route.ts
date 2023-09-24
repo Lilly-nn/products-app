@@ -3,11 +3,6 @@ import { connectToMongoDB } from "../../../DB/index";
 import bcryptjs from "bcryptjs";
 import User from "@/DB/models/userModel";
 
-type RequestType = {
-    email: string;
-    password: string
-}
-
 export async function POST(request: NextRequest) {
     await connectToMongoDB();
     const body: RequestType = await request.json();
@@ -34,4 +29,9 @@ export async function POST(request: NextRequest) {
         console.log(err)
     }
 
+}
+
+type RequestType = {
+    email: string;
+    password: string
 }

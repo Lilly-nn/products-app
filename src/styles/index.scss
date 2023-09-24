@@ -9,9 +9,26 @@
 @import '../styles/sections/footer.scss';
 @import '../styles/sections/hot-deals.scss';
 @import '../styles/sections/authorize.scss';
+@import '../styles/sections/categoriesSection.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: lightgrey;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: lightgrey;
+}
 
 .container {
   max-width: 1300px;

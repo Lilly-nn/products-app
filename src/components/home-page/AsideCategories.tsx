@@ -13,7 +13,7 @@ export default function AsideCategories() {
     categoriesVisible && (
       <div className={`home__main-categories ${limit > 10 ? 'scroll' : ''}`}>
         {categories.slice(0, limit).map((category) => (
-          <Link href={`/${category.title}`} className='category' key={category.title}>
+          <Link href={`/categories/${category.title}`} className='category' key={category.title}>
             {category.title.split('-').join(' ')}
           </Link>
         ))}
