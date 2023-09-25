@@ -17,7 +17,7 @@ export const productsApi = createApi({
             query: (category) => `/category/${category}`,
         }),
         getAllProducts: builder.query<ApiResponse, string>({
-            query: () => `/`,
+            query: () => `/?limit=100`,
         }),
     }),
 })

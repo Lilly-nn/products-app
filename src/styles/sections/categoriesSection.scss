@@ -26,7 +26,6 @@
   max-height: 95vh;
   overflow: scroll;
   margin-bottom: 40px;
-  justify-content: space-between;
 }
 
 .categories__aside-name {
@@ -67,21 +66,51 @@
     margin-bottom: 20px;
   }
 }
+.categories__aside-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.categories__aside-chosen {
+  color: gray;
+  font-size: 11px;
+  font-weight: 400;
+  border: 1px solid lightgray;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 5px;
+  text-align: center;
+  border-radius: 43px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
 
 .categories__aside-brand {
   border-radius: 30px;
-  padding: 6px 16px;
+  padding: 6px 0;
+  text-align: center;
   color: #1a1a1a;
   font-size: 14px;
   font-weight: 400;
   background: #f2f2f2;
   cursor: pointer;
   border: 1px solid transparent;
+  width: fit-content;
+  &:focus {
+    outline: 1px solid transparent;
+  }
   &:hover {
     border: 1px solid lightgray;
   }
   &.active {
-    border: 1px solid lightgray;
+    border: 2px solid lightgray;
   }
 }
 

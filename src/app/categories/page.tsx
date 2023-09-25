@@ -1,15 +1,13 @@
 'use client';
 import ProductCard from '@/components/ProductCard';
 import CategoriesAsideBar from '@/components/categoriesPage/CategoriesAsideBar';
-import { useGetProductsByCategoryQuery } from '@/context/services/productsApi';
+import { useGetAllProductsQuery } from '@/context/services/productsApi';
 import { CategoriesFilterType } from '@/types/categoriesType';
 import { ProductType } from '@/types/productsType';
-import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function CategoryPage() {
-  const { category: categoryQuery } = useParams();
-  const { data, error, isLoading } = useGetProductsByCategoryQuery(categoryQuery.toString());
+  const { data, error, isLoading } = useGetAllProductsQuery('');
   const [products, setProducts] = useState<ProductType[]>();
   const [categoriesFilter, setCategoriesFilter] = useState<CategoriesFilterType>({
     name: '',
@@ -20,6 +18,9 @@ export default function CategoryPage() {
 
   function filterProducts() {
     const filteredProducts = data?.products?.filter((product) => {
+      if (categoriesFilter.name && product.category !== categoriesFilter.name) {
+        return false;
+      }
       if (categoriesFilter.brands.length > 0 && !categoriesFilter.brands.includes(product.brand)) {
         return false;
       }
@@ -35,19 +36,18 @@ export default function CategoryPage() {
 
   useEffect(() => {
     filterProducts();
-  }, [isLoading, categoriesFilter.brands]);
+  }, [isLoading, categoriesFilter.name, categoriesFilter.brands]);
 
   return (
     <section className='categories__section'>
       <div className='categories__container container'>
         <CategoriesAsideBar
-          products={data?.products}
-          categoryQuery={categoryQuery.toString()}
+          allProducts={data?.products}
+          products={products}
           categoriesFilter={categoriesFilter}
           setCategoriesFilter={setCategoriesFilter}
         />
         <div className='categories__cards'>
-          {isLoading && <p>Loading...</p>}
           {products?.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
