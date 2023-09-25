@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import filterSvg from '../../../public/assets/Filter 24px.svg';
 import CategoriesTab from './CategoriesTab';
 import { categories } from '@/info/categories';
@@ -72,6 +72,41 @@ export default function CategoriesAsideBar({
       });
     }
   }
+  const [priceValues, setPriceValues] = useState({
+    min: 0,
+    max: 1000,
+  });
+
+  function changePriceValue(e: React.ChangeEvent<HTMLInputElement>) {
+    setPriceValues({
+      ...priceValues,
+      [e.target.name]: Number(e.target.value),
+    });
+    fillColor();
+  }
+
+  useEffect(() => {
+    if (priceValues.min >= priceValues.max) {
+      setPriceValues({
+        ...priceValues,
+        min: priceValues.max > 5 ? priceValues.max - 5 : 0,
+      });
+    }
+  }, [priceValues.min, priceValues.max]);
+
+  const priceTrack = useRef<HTMLDivElement>(null);
+  const priceInput1 = useRef<HTMLInputElement>(null);
+  const priceInput2 = useRef<HTMLInputElement>(null);
+
+  function fillColor() {
+    const percent1 = (priceValues.min / Number(priceInput1.current?.max)) * 100;
+    console.log(percent1);
+    const percent2 = (priceValues.max / Number(priceInput2.current?.max)) * 100;
+
+    if (priceTrack.current) {
+      priceTrack.current.style.background = `linear-gradient(to right, #dadae5 ${percent1}%, green ${percent1}%, green ${percent2}%, #dadae5 ${percent2}%)`;
+    }
+  }
 
   return (
     <aside className='categories__aside'>
@@ -117,7 +152,35 @@ export default function CategoriesAsideBar({
         )}
 
         <CategoriesTab title='Price'>
-          <span>price</span>
+          <div className='price__wrapper'>
+            <div className='price__container'>
+              <div className='price__container-track' ref={priceTrack}>
+                <input
+                  type='range'
+                  ref={priceInput1}
+                  name='min'
+                  onChange={changePriceValue}
+                  min={0}
+                  max={2000}
+                  value={priceValues.min}
+                />
+                <input
+                  type='range'
+                  ref={priceInput2}
+                  name='max'
+                  onChange={changePriceValue}
+                  min={0}
+                  max={2000}
+                  value={priceValues.max}
+                />
+              </div>
+            </div>
+          </div>
+          <div className='mt-4'>
+            <p>
+              Price: ${priceValues.min} - ${priceValues.max}
+            </p>
+          </div>
         </CategoriesTab>
         <CategoriesTab title='Rating'>
           <div className='categories__aside-rating'>
