@@ -1,12 +1,13 @@
 'use client';
+import useAddToCart from '@/hooks/useAddToCart';
+import { ProductType } from '@/types/productsType';
+import { calculateRating } from '@/utils/calculateRating';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import LikeSvg from './UI/LikeSvg';
 import CartSvg from './UI/CartSvg';
-import { ProductType } from '@/types/productsType';
+import LikeSvg from './UI/LikeSvg';
 import Stars from './UI/Stars';
-import { calculateRating } from '@/utils/calculateRating';
 
 export default function ProductCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
@@ -18,10 +19,7 @@ export default function ProductCard({ ...product }: ProductType) {
     setIsLiked(!isLiked);
   }
 
-  function addToCard(e: React.MouseEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsAddedToBag(!isAddedToBag);
-  }
+  const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
 
   return (
     <Link href={`/${product.category}/${product.id}`} key={product.id} className='product__card'>
@@ -44,7 +42,12 @@ export default function ProductCard({ ...product }: ProductType) {
             <Stars stars={stars} />
           </div>
         </div>
-        <div className={`${isAddedToBag ? 'active' : ''} svg`} onClick={addToCard}>
+        <div
+          className={`${isAddedToBag ? 'active' : ''} svg`}
+          onClick={(e) => {
+            e.preventDefault();
+            addToBag();
+          }}>
           <CartSvg />
         </div>
       </div>

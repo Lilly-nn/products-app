@@ -1,18 +1,17 @@
 'use client';
+import useAddToCart from '@/hooks/useAddToCart';
+import { ProductType } from '@/types/productsType';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import CartSvg from '../UI/CartSvg';
 import LikeSvg from '../UI/LikeSvg';
 
-export default function ProductMiniCard({ ...product }) {
+export default function ProductMiniCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
 
-  function addToBag(e: React.MouseEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsAddedToBag(!isAddedToBag);
-  }
+  const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
 
   function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -35,7 +34,12 @@ export default function ProductMiniCard({ ...product }) {
         <span className='product__mini-card-price'>${product.price}</span>
         <span className='product__mini-card-rating'>rating: {product.rating}</span>
         <div className='product__mini-card-add'>
-          <div className={`${isAddedToBag ? 'active' : ''}`} onClick={addToBag}>
+          <div
+            className={`${isAddedToBag ? 'active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              addToBag();
+            }}>
             <CartSvg />
           </div>
           <div className={`${isLiked ? 'active' : ''}`} onClick={addToLiked}>
