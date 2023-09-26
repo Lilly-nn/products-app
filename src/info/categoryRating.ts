@@ -1,7 +1,7 @@
 export const categoryRating = [
     {
         stars: 5,
-        text: " 5.0"
+        text: " ~ 5"
     },
     {
         stars: 4,

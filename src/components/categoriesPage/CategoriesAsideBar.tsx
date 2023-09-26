@@ -24,9 +24,9 @@ export default function CategoriesAsideBar({
   setCategoriesFilter: any;
   allProducts?: ProductType[] | undefined;
 }) {
-  const [brands, setBrands] = useState<string[]>([]);
+  const [brands, setBrands] = useState<string[] | undefined>([]);
   const allBrands =
-    brands.length > 0
+    brands && brands.length > 0
       ? sortUnique(brands)
       : allProducts && allProducts.length > 0
       ? sortUnique(allProducts.map((el: ProductType) => el.brand))
@@ -35,9 +35,7 @@ export default function CategoriesAsideBar({
   useEffect(() => {
     function changeBrands() {
       if (categoriesFilter.name) {
-        if (products && products.length >= 5) {
-          setBrands(products?.map((el: ProductType) => el.brand));
-        }
+        setBrands(products?.map((el: ProductType) => el.brand));
       }
     }
     changeBrands();

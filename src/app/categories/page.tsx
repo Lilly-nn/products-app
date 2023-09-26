@@ -21,6 +21,15 @@ export default function CategoryPage() {
       if (categoriesFilter.name && product.category !== categoriesFilter.name) {
         return false;
       }
+
+      const filteredByRating = categoriesFilter.rating.map((item) =>
+        Number(item) > Math.round(product.rating) ? '' : product
+      );
+
+      if (filteredByRating.length > 0 && !filteredByRating.includes(product)) {
+        return false;
+      }
+
       if (categoriesFilter.brands.length > 0 && !categoriesFilter.brands.includes(product.brand)) {
         return false;
       }
@@ -33,22 +42,21 @@ export default function CategoryPage() {
       return true;
     });
 
-    if (!filteredProducts?.length) {
-      setProducts(data?.products);
-    } else {
-      setProducts(filteredProducts);
-    }
+    setProducts(filteredProducts);
   }
-  console.log(categoriesFilter);
+
+  useEffect(() => {
+    setProducts(data?.products);
+  }, [isLoading]);
 
   useEffect(() => {
     filterProducts();
   }, [
-    isLoading,
     categoriesFilter.name,
     categoriesFilter.brands,
     categoriesFilter.price?.min,
     categoriesFilter.price?.max,
+    categoriesFilter.rating,
   ]);
 
   return (
@@ -64,6 +72,10 @@ export default function CategoryPage() {
           {products?.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
+          {!products?.length && !isLoading && (
+            <span className='mt-2'>no products found which match your filter...</span>
+          )}
+          {isLoading && <span>Loading...</span>}
         </div>
       </div>
     </section>
