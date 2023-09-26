@@ -74,15 +74,18 @@ export default function CategoriesAsideBar({
   }
   const [priceValues, setPriceValues] = useState({
     min: 0,
-    max: 1000,
+    max: 1700,
   });
+  function changePrice() {
+    setCategoriesFilter({ ...categoriesFilter, price: priceValues });
+  }
 
-  function changePriceValue(e: React.ChangeEvent<HTMLInputElement>) {
+  function handlePriceValue(e: React.ChangeEvent<HTMLInputElement>) {
+    fillColor();
     setPriceValues({
       ...priceValues,
       [e.target.name]: Number(e.target.value),
     });
-    fillColor();
   }
 
   useEffect(() => {
@@ -100,7 +103,6 @@ export default function CategoriesAsideBar({
 
   function fillColor() {
     const percent1 = (priceValues.min / Number(priceInput1.current?.max)) * 100;
-    console.log(percent1);
     const percent2 = (priceValues.max / Number(priceInput2.current?.max)) * 100;
 
     if (priceTrack.current) {
@@ -159,7 +161,8 @@ export default function CategoriesAsideBar({
                   type='range'
                   ref={priceInput1}
                   name='min'
-                  onChange={changePriceValue}
+                  onMouseUp={changePrice}
+                  onChange={handlePriceValue}
                   min={0}
                   max={2000}
                   value={priceValues.min}
@@ -168,7 +171,8 @@ export default function CategoriesAsideBar({
                   type='range'
                   ref={priceInput2}
                   name='max'
-                  onChange={changePriceValue}
+                  onMouseUp={changePrice}
+                  onChange={handlePriceValue}
                   min={0}
                   max={2000}
                   value={priceValues.max}

@@ -13,7 +13,7 @@ export default function CategoryPage() {
   const [products, setProducts] = useState<ProductType[]>();
   const [categoriesFilter, setCategoriesFilter] = useState<CategoriesFilterType>({
     name: '',
-    price: '',
+    price: { min: 0, max: 1700 },
     rating: [],
     brands: [],
   });
@@ -21,6 +21,12 @@ export default function CategoryPage() {
   function filterProducts() {
     const filteredProducts = data?.products?.filter((product) => {
       if (categoriesFilter.brands.length > 0 && !categoriesFilter.brands.includes(product.brand)) {
+        return false;
+      }
+      if (
+        (categoriesFilter.price && product.price > categoriesFilter.price?.max) ||
+        (categoriesFilter.price && product.price < categoriesFilter.price?.min)
+      ) {
         return false;
       }
       return true;
@@ -35,7 +41,12 @@ export default function CategoryPage() {
 
   useEffect(() => {
     filterProducts();
-  }, [isLoading, categoriesFilter.brands]);
+  }, [
+    isLoading,
+    categoriesFilter.brands,
+    categoriesFilter.price?.max,
+    categoriesFilter.price?.min,
+  ]);
 
   return (
     <section className='categories__section'>
