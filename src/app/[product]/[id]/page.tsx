@@ -3,6 +3,7 @@ import LikeSvg from '@/components/UI/LikeSvg';
 import SocialIcons from '@/components/UI/SocialIcons';
 import Stars from '@/components/UI/Stars';
 import Button from '@/components/UI/button/Button';
+import RelatedProducts from '@/components/productPage/RelatedProducts';
 import {
   addAmount,
   addToCart,
@@ -164,6 +165,7 @@ export default function ProductPage() {
         {isLoading && <span>Loading..</span>}
         {!isLoading && !data && <p>This product wasn`&apos;t found</p>}
       </div>
+      {data && <RelatedProducts productId={data.id} productCategory={data.category} />}
     </section>
   );
 }
