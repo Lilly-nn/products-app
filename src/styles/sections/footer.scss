@@ -16,6 +16,15 @@
     display: flex;
     align-items: center;
     gap: 24px;
+    .cont {
+      border: none;
+      background: #333;
+    }
+    .input {
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   .subscribe {
@@ -31,32 +40,7 @@
       font-weight: 400;
       margin-top: 4px;
     }
-    &__input {
-      background: #333;
-      border-radius: 43px;
-      input {
-        min-width: 300px;
-        background: none;
-        padding: 16px 24px;
-        color: #999;
-        &:focus {
-          outline: transparent;
-        }
-        &::placeholder {
-          color: #999;
-        }
-      }
-      button {
-        background: $primary;
-        color: #fff;
-        padding: 16px 40px;
-        border-radius: 43px;
-        // transition: all 0.2s linear;
-        &:hover {
-          filter: brightness(90%);
-        }
-      }
-    }
+
     &__social {
       display: flex;
       align-items: center;

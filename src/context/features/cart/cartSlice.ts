@@ -1,5 +1,5 @@
 import { CartType } from "@/types/cartType";
-import { ProductType } from "@/types/productsType";
+import { CartProductType, ProductType } from "@/types/productsType";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: CartType = {
@@ -12,10 +12,13 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addToCart: (state: CartType, action: PayloadAction<ProductType>) => {
+        addToCart: (state: CartType, action: PayloadAction<any>) => {
             const exists = state.cartItems.find(product => product.id === action.payload.id)
-            if (!exists) {
+            if (!exists && !action.payload.chosenQuantity) {
                 state.cartItems = [...state.cartItems, { ...action.payload, chosenQuantity: 1 }];
+            }
+            if (!exists && action.payload.chosenQuantity) {
+                state.cartItems = [...state.cartItems, { ...action.payload }];
             }
             state.totalItemsAmount = state.cartItems.length;
             cartSlice.caseReducers.calculateTotalPrice(state);
@@ -25,7 +28,7 @@ const cartSlice = createSlice({
                 ? item
                 : {
                     ...item,
-                    chosenQuantity: item.chosenQuantity + 1
+                    chosenQuantity: item.chosenQuantity < item.stock ? item.chosenQuantity + 1 : item.stock
                 })
             cartSlice.caseReducers.calculateTotalPrice(state);
         },

@@ -1,0 +1,25 @@
+.container {
+  background: white;
+  border-radius: 43px;
+  border: 1px solid lightgray;
+}
+
+.input {
+  min-width: 300px;
+  background: none;
+  padding: 16px 24px;
+  color: #999;
+  &:focus {
+    outline: none;
+  }
+}
+
+.button {
+  background: #00b207;
+  color: #fff;
+  padding: 16px 40px;
+  border-radius: 43px;
+  &:hover {
+    background: darken($color: #00b207, $amount: 5);
+  }
+}
