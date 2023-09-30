@@ -10,17 +10,17 @@ type ApiResponse = {
 
 export const productsApi = createApi({
     reducerPath: 'productsApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/products' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/' }),
     endpoints: (builder) => ({
 
         getProductsByCategory: builder.query<ApiResponse, string>({
-            query: (category) => `/category/${category}`,
+            query: (category) => `products/category/${category}`,
         }),
         getAllProducts: builder.query<ApiResponse, string>({
-            query: () => `/?limit=100`,
+            query: () => `products/?limit=100`,
         }),
         getOneProduct: builder.query<ProductType, string>({
-            query: (id) => `/${id}`,
+            query: (id) => `products/${id}`,
         }),
     }),
 })

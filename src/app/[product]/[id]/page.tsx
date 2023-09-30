@@ -30,15 +30,13 @@ export default function ProductPage() {
   const dispatch = useDispatch();
   const tags = [data?.brand, data?.category, data?.title.split(' ')[0]];
 
-  console.log(data);
-
   function addToBag() {
     if (data) {
       if (!isAddedToBag) {
         dispatch(addToCart({ ...data, chosenQuantity }));
       } else {
         setChosenQuantity(0);
-        dispatch(removeFromCart(data));
+        dispatch(removeFromCart({ ...data, chosenQuantity }));
       }
     }
     setIsAddedToBag(!isAddedToBag);
@@ -47,7 +45,12 @@ export default function ProductPage() {
   function addQuantity() {
     if (data && chosenQuantity < data.stock) {
       setChosenQuantity(chosenQuantity + 1);
-      dispatch(addAmount(data));
+      dispatch(
+        addAmount({
+          ...data,
+          chosenQuantity,
+        })
+      );
     } else {
       alert("we don't have more items in stock");
     }
@@ -56,7 +59,12 @@ export default function ProductPage() {
   function subtractQuantity() {
     if (data && chosenQuantity > 0) {
       setChosenQuantity(chosenQuantity - 1);
-      dispatch(extractAmount(data));
+      dispatch(
+        extractAmount({
+          ...data,
+          chosenQuantity,
+        })
+      );
     }
   }
 
@@ -72,6 +80,10 @@ export default function ProductPage() {
       });
     }
   }, [data?.id, cartItems]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className='product__section'>

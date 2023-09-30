@@ -11,9 +11,15 @@ export default function useAddToCart({ product, isAddedToBag, setIsAddedToBag }:
 
     function addToBag() {
         if (!isAddedToBag) {
-            dispatch(addToCart(product));
+            dispatch(addToCart({
+                ...product,
+                chosenQuantity: 1
+            }));
         } else {
-            dispatch(removeFromCart(product));
+            dispatch(removeFromCart({
+                ...product,
+                chosenQuantity: 1
+            }));
         }
         setIsAddedToBag(!isAddedToBag)
     }

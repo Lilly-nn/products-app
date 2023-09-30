@@ -10,13 +10,17 @@ export default function RegisterSection() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   async function saveUser(userData: Record<string, string>) {
+    setLoading(true);
     try {
       const res = await axios.post('/api/register', userData);
       alert(res.statusText);
     } catch (err: any) {
       alert(err.response.statusText);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -61,7 +65,11 @@ export default function RegisterSection() {
         />
         <span>Accept all terms & Conditions</span>
       </label>
-      <Button type='submit' disabled={!acceptedTerms} value='Create account' />
+      <Button
+        type='submit'
+        disabled={!acceptedTerms || loading}
+        value={loading ? 'Creating...' : 'Create account'}
+      />
     </form>
   );
 }

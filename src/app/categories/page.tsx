@@ -17,7 +17,7 @@ export default function CategoryPage() {
   });
 
   function filterProducts() {
-    const filteredProducts = data?.products?.filter((product) => {
+    const filteredProducts = data?.products?.filter((product: ProductType) => {
       if (categoriesFilter.name && product.category !== categoriesFilter.name) {
         return false;
       }

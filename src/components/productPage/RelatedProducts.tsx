@@ -11,7 +11,7 @@ export default function RelatedProducts({
 }) {
   const { data, isLoading, isError } = useGetProductsByCategoryQuery(productCategory);
   const relatedProducts = data?.products.filter((product) => product.id !== productId);
-  console.log(relatedProducts);
+
   return (
     <section className='related-products container'>
       <h3 className='title '>Related Products</h3>
@@ -21,6 +21,7 @@ export default function RelatedProducts({
         ))}
       </div>
       {isLoading && <span>Loading...</span>}
+      {isError && <span>An error happened while loading</span>}
     </section>
   );
 }

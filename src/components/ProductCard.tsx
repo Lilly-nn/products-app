@@ -22,7 +22,11 @@ export default function ProductCard({ ...product }: ProductType) {
   const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
 
   return (
-    <Link href={`/${product.category}/${product.id}`} key={product.id} className='product__card'>
+    <Link
+      scroll={false}
+      href={`/${product.category}/${product.id}`}
+      key={product.id}
+      className='product__card'>
       <div className={`like ${isLiked ? 'active' : ''}`} onClick={(e) => addToLiked(e)}>
         <LikeSvg />
       </div>

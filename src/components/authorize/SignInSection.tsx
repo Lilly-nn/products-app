@@ -3,14 +3,35 @@ import { useState } from 'react';
 import AuthorizeInput from '../inputs/AuthorizeInputs';
 import Link from 'next/link';
 import Button from '../UI/button/Button';
+import axios from 'axios';
 
 export default function SignInSection() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [makeSignedIn, setMakeSignedIn] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function login(userData: Record<string, string>) {
+    setLoading(true);
+    try {
+      const res = await axios.post('/api/sign-in', userData);
+      console.log(res.data);
+      if (res.status === 200 && res.data) {
+        alert('you are signed in');
+      }
+    } catch (err: any) {
+      alert(err.response.statusText);
+    } finally {
+      setLoading(false);
+    }
+  }
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!email.trim() || !password) {
+      alert('Fill out all of the fields!');
+      return;
+    }
+    await login({ email, password });
   }
 
   return (
@@ -37,7 +58,7 @@ export default function SignInSection() {
         </label>
         <Link href='/forgot-password'>Forgot Password</Link>
       </div>
-      <Button type='submit' value='Login' />
+      <Button type='submit' disabled={loading} value={loading ? 'Loading...' : 'Login'} />
     </form>
   );
 }

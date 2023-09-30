@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
                 statusText: "User credentials are not valid"
             })
         }
-        return new NextResponse("success", {
+        return new NextResponse(JSON.stringify(validUser), {
             status: 200,
             statusText: "User signed in"
         })

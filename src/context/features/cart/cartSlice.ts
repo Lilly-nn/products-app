@@ -12,18 +12,15 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addToCart: (state: CartType, action: PayloadAction<any>) => {
+        addToCart: (state: CartType, action: PayloadAction<CartProductType>) => {
             const exists = state.cartItems.find(product => product.id === action.payload.id)
-            if (!exists && !action.payload.chosenQuantity) {
-                state.cartItems = [...state.cartItems, { ...action.payload, chosenQuantity: 1 }];
-            }
-            if (!exists && action.payload.chosenQuantity) {
-                state.cartItems = [...state.cartItems, { ...action.payload }];
+            if (!exists) {
+                state.cartItems = [...state.cartItems, action.payload];
             }
             state.totalItemsAmount = state.cartItems.length;
             cartSlice.caseReducers.calculateTotalPrice(state);
         },
-        addAmount: (state: CartType, action: PayloadAction<ProductType>) => {
+        addAmount: (state: CartType, action: PayloadAction<CartProductType>) => {
             state.cartItems = state.cartItems.map(item => item.id !== action.payload.id
                 ? item
                 : {
@@ -32,7 +29,7 @@ const cartSlice = createSlice({
                 })
             cartSlice.caseReducers.calculateTotalPrice(state);
         },
-        extractAmount: (state: CartType, action: PayloadAction<ProductType>) => {
+        extractAmount: (state: CartType, action: PayloadAction<CartProductType>) => {
             state.cartItems = state.cartItems.map(item => item.id !== action.payload.id
                 ? item
                 : {
@@ -41,7 +38,7 @@ const cartSlice = createSlice({
                 })
             cartSlice.caseReducers.calculateTotalPrice(state);
         },
-        removeFromCart: (state: CartType, action: PayloadAction<ProductType>) => {
+        removeFromCart: (state: CartType, action: PayloadAction<CartProductType>) => {
             state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id);
             state.totalItemsAmount = state.cartItems.length;
             cartSlice.caseReducers.calculateTotalPrice(state);
