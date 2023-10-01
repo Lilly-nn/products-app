@@ -27,7 +27,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/Header.jsx"
+    "src/components/Header.jsx",
+    "src/app/api/get-user/route.js",
+    "src/app/api/sign-in/route.js",
+    "src/app/api/check-auth/route.js",
+    "src/app/api/register/route.js"
   ],
   "exclude": ["node_modules"]
 }

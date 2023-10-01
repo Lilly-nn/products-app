@@ -10,7 +10,11 @@ import SearchInput from './SearchInput';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 export default function Header() {
-  const userId = localStorage.getItem('user_id');
+  const [userId, setUserId] = useState<string | null>(null);
+  useEffect(() => {
+    setUserId(localStorage.getItem('user_id'));
+  }, []);
+
   const { isAuthorized } = useTypedSelector((state) => state.user);
   const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
   return (
