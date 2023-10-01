@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import mapSvg from '../../public/assets/Map Pin.svg';
 import logoImg from '@/../public/assets/logo.svg';
 import likeSvg from '../../public/assets/Heart.svg';
@@ -10,6 +10,8 @@ import SearchInput from './SearchInput';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 export default function Header() {
+  const userId = localStorage.getItem('user_id');
+  const { isAuthorized } = useTypedSelector((state) => state.user);
   const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
   return (
     <header className='header'>
@@ -28,9 +30,15 @@ export default function Header() {
             <select>
               <option>USD</option>
             </select>
-            <Link className='link__sign-in' href='/sign-up'>
-              Sign In / Sign Up
-            </Link>
+            {userId || isAuthorized ? (
+              <Link className='link__sign-in' href={`/account/${userId}`}>
+                My Account
+              </Link>
+            ) : (
+              <Link className='link__sign-in' href='/sign-up'>
+                Sign In / Sign Up
+              </Link>
+            )}
           </div>
         </div>
         <div className='header__content'>

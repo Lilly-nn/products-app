@@ -2,21 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type authorizeState = {
     isAuthorized: boolean;
+    userId: string | null;
 }
 
 const initialState: authorizeState = {
-    isAuthorized: false
+    userId: null,
+    isAuthorized: false,
+
 }
 
 const authorizeSlice = createSlice({
     name: "authorized",
     initialState,
     reducers: {
-        signIn: (state) => {
+        signIn: (state, action) => {
             state.isAuthorized = true;
+            state.userId = action.payload;
         },
         signOut: (state) => {
             state.isAuthorized = false;
+            state.userId = null;
         }
     }
 })

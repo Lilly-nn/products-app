@@ -4,6 +4,8 @@ import AuthorizeInput from '../inputs/AuthorizeInputs';
 import Button from '../UI/button/Button';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { signIn } from '@/context/features/authorize/authorizeSlice';
 
 export default function RegisterSection() {
   const [email, setEmail] = useState('');
@@ -13,12 +15,15 @@ export default function RegisterSection() {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   async function saveUser(userData: Record<string, string>) {
     setLoading(true);
     try {
       const res = await axios.post('/api/register', userData);
       const userId = res.data._id;
+      localStorage.setItem('user_id', userId);
+      dispatch(signIn(userId));
       alert(res.statusText);
       router.push(`/account/${userId}`);
     } catch (err: any) {

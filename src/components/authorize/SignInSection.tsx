@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Button from '../UI/button/Button';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { signIn } from '@/context/features/authorize/authorizeSlice';
 
 export default function SignInSection() {
   const [email, setEmail] = useState('');
@@ -12,6 +14,7 @@ export default function SignInSection() {
   const [loading, setLoading] = useState(false);
   const [makeSignedIn, setMakeSignedIn] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   async function login(userData: Record<string, string>) {
     setLoading(true);
@@ -21,7 +24,13 @@ export default function SignInSection() {
       const userId = res.data.validUser._id;
       localStorage.setItem('access_token', token);
       if (res.status === 200 && res.data) {
+        if (makeSignedIn) {
+          localStorage.setItem('user_id', userId);
+        } else {
+          localStorage.removeItem('user_id');
+        }
         alert('you are signed in');
+        dispatch(signIn(userId));
         router.push(`/account/${userId}`);
       }
     } catch (err: any) {
