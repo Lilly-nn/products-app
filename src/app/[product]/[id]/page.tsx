@@ -29,6 +29,7 @@ export default function ProductPage() {
   const [chosenQuantity, setChosenQuantity] = useState(0);
   const dispatch = useDispatch();
   const tags = [data?.brand, data?.category, data?.title.split(' ')[0]];
+  const [transformValue, setTransformValue] = useState(0);
 
   function addToBag() {
     if (data) {
@@ -92,17 +93,26 @@ export default function ProductPage() {
           <>
             <div className='product__img'>
               <div className='images'>
-                <IoIosArrowDown className='arrow-down arrow' />
-                <IoIosArrowUp className='arrow-up arrow' />
-                {data.images.map((img, index) => (
-                  <img
-                    key={img}
-                    onClick={() => setCurrentImage(index)}
-                    src={img}
-                    className={`${currentImage === index ? 'active' : ''}`}
-                    alt='image'
-                  />
-                ))}
+                <IoIosArrowDown
+                  className={`arrow-down arrow ${transformValue <= -88 ? 'disabled' : ''}`}
+                  onClick={() => transformValue > -88 && setTransformValue(transformValue - 88)}
+                />
+                <IoIosArrowUp
+                  className={`arrow-up arrow ${transformValue >= 0 ? 'disabled' : ''}`}
+                  onClick={() => transformValue < 0 && setTransformValue(transformValue + 88)}
+                />
+                <div className='container'>
+                  {data.images.map((img, index) => (
+                    <img
+                      style={{ transform: `translateY(${transformValue}px)` }}
+                      key={img}
+                      onClick={() => setCurrentImage(index)}
+                      src={img}
+                      className={`${currentImage === index ? 'active' : ''}`}
+                      alt='image'
+                    />
+                  ))}
+                </div>
               </div>
               <div className='main-img'>
                 <img src={data.images[currentImage]} />

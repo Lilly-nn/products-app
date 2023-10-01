@@ -4,20 +4,25 @@ import AuthorizeInput from '../inputs/AuthorizeInputs';
 import Link from 'next/link';
 import Button from '../UI/button/Button';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function SignInSection() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [makeSignedIn, setMakeSignedIn] = useState(false);
+  const router = useRouter();
 
   async function login(userData: Record<string, string>) {
     setLoading(true);
     try {
       const res = await axios.post('/api/sign-in', userData);
-      console.log(res.data);
+      const token = res.data.token;
+      const userId = res.data.validUser._id;
+      localStorage.setItem('access_token', token);
       if (res.status === 200 && res.data) {
         alert('you are signed in');
+        router.push(`/account/${userId}`);
       }
     } catch (err: any) {
       alert(err.response.statusText);

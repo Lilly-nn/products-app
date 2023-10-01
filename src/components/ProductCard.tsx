@@ -5,6 +5,7 @@ import { calculateRating } from '@/utils/calculateRating';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import CartSvg from './UI/CartSvg';
 import LikeSvg from './UI/LikeSvg';
 import Stars from './UI/Stars';
@@ -12,9 +13,10 @@ import Stars from './UI/Stars';
 export default function ProductCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
+  const dispatch = useDispatch();
   const stars = calculateRating(product.rating);
 
-  function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
+  async function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsLiked(!isLiked);
   }

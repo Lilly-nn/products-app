@@ -3,6 +3,7 @@ import { useState } from 'react';
 import AuthorizeInput from '../inputs/AuthorizeInputs';
 import Button from '../UI/button/Button';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterSection() {
   const [email, setEmail] = useState('');
@@ -11,12 +12,15 @@ export default function RegisterSection() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   async function saveUser(userData: Record<string, string>) {
     setLoading(true);
     try {
       const res = await axios.post('/api/register', userData);
+      const userId = res.data._id;
       alert(res.statusText);
+      router.push(`/account/${userId}`);
     } catch (err: any) {
       alert(err.response.statusText);
     } finally {
