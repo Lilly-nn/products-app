@@ -9,19 +9,24 @@ import { useDispatch } from 'react-redux';
 import CartSvg from './UI/CartSvg';
 import LikeSvg from './UI/LikeSvg';
 import Stars from './UI/Stars';
+import useChangeCurrency from '@/hooks/useChangeCurrency';
 
 export default function ProductCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
-  const dispatch = useDispatch();
   const stars = calculateRating(product.rating);
+  const { productPrice, currencySign } = useChangeCurrency(product);
+  const productWithCurrency = {
+    ...product,
+    price: productPrice,
+  };
 
   async function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsLiked(!isLiked);
   }
 
-  const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
+  const addToBag = useAddToCart({ product: productWithCurrency, isAddedToBag, setIsAddedToBag });
 
   return (
     <Link
@@ -43,7 +48,10 @@ export default function ProductCard({ ...product }: ProductType) {
       <div className='product__info'>
         <div className='flex flex-col gap-y-[6px]'>
           <span className='product__title'>{product.title}</span>
-          <span className='product__price'>${product.price}</span>
+          <span className='product__price'>
+            {currencySign}
+            {productPrice?.toFixed(2)}
+          </span>
           <div className='product__rating'>
             <Stars stars={stars} />
           </div>

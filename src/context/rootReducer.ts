@@ -3,6 +3,7 @@ import userReducer from "./features/authorize/authorizeSlice";
 import cartReducer from "./features/cart/cartSlice";
 import categoryReducer from "./features/categories/categoriesSlice";
 import visibleReducer from "./features/visible/visibleSlice";
+import currencyReducer from "./features/currency/currencySlice";
 import { productsApi } from "./services/productsApi";
 
 export const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ export const rootReducer = combineReducers({
     user: userReducer,
     category: categoryReducer,
     visible: visibleReducer,
+    currency: currencyReducer,
     [productsApi.reducerPath]: productsApi.reducer
 })
 

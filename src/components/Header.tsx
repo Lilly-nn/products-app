@@ -8,15 +8,22 @@ import bagSvg from '../../public/assets/Bag.svg';
 import Link from 'next/link';
 import SearchInput from './SearchInput';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useDispatch } from 'react-redux';
+import { changeCurrency } from '@/context/features/currency/currencySlice';
 
 export default function Header() {
   const [userId, setUserId] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const { cartItems } = useTypedSelector((state) => state.cart);
+
   useEffect(() => {
     setUserId(localStorage.getItem('user_id'));
   }, []);
 
   const { isAuthorized } = useTypedSelector((state) => state.user);
   const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
+  const { chosenCurrency } = useTypedSelector((state) => state.currency);
+  const currencySign = chosenCurrency === 'UAH' ? 'UAH' : chosenCurrency === 'EUR' ? '€' : '$';
   return (
     <header className='header'>
       <div className='header__container container'>
@@ -31,9 +38,14 @@ export default function Header() {
             <select>
               <option>Eng</option>
             </select>
-            <select>
-              <option>USD</option>
-            </select>
+            {!cartItems.length && (
+              <select onChange={(e) => dispatch(changeCurrency(e.target.value))}>
+                <option value='USD'>USD</option>
+                <option value='EUR'>EUR</option>
+                <option value='UAH'>UAH</option>
+              </select>
+            )}
+
             {userId || isAuthorized ? (
               <Link className='link__sign-in' href={`/account/${userId}`}>
                 My Account
@@ -62,7 +74,10 @@ export default function Header() {
               </div>
               <div className='cart-icon__info'>
                 <span className='title'>Shopping cart:</span>
-                <span className='total'>${totalPrice}</span>
+                <span className='total'>
+                  {currencySign}
+                  {totalPrice.toFixed(2)}
+                </span>
               </div>
             </Link>
           </div>

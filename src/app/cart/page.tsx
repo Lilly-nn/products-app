@@ -4,17 +4,18 @@ import Input from '@/components/UI/input/Input';
 import { addAmount, extractAmount, removeFromCart } from '@/context/features/cart/cartSlice';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { CartProductType } from '@/types/productsType';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { GrFormClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 
 export default function CartPage() {
   const { cartItems, totalPrice } = useTypedSelector((state) => state.cart);
+  const { chosenCurrency } = useTypedSelector((state) => state.currency);
+  const currencySign = chosenCurrency === 'UAH' ? 'UAH' : chosenCurrency === 'EUR' ? '€' : '$';
   const shippingCost = 0;
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(cartItems);
+
   return (
     <section className='cart__section'>
       <div className='cart__container container'>
@@ -41,7 +42,10 @@ export default function CartPage() {
                         <span>{item.title}</span>
                       </div>
                       <div className='price'>
-                        <span>${item.price}</span>
+                        <span>
+                          {currencySign}
+                          {item.price.toFixed(2)}
+                        </span>
                       </div>
                       <div className='quantity-info'>
                         <div className='quantity'>
@@ -51,7 +55,10 @@ export default function CartPage() {
                         </div>
                       </div>
                       <div className='total'>
-                        <span className='font-medium'>${item.price * item.chosenQuantity}</span>
+                        <span className='font-medium'>
+                          {currencySign}
+                          {(item.price * item.chosenQuantity).toFixed(2)}
+                        </span>
                       </div>
                       <button className='close' onClick={() => dispatch(removeFromCart(item))}>
                         <GrFormClose />
@@ -76,7 +83,10 @@ export default function CartPage() {
             <div className='items'>
               <div className='item'>
                 <span className='item__name'>Subtotal:</span>
-                <span className='item__price'>${totalPrice}</span>
+                <span className='item__price'>
+                  {currencySign}
+                  {totalPrice.toFixed(2)}
+                </span>
               </div>
               <div className='item'>
                 <span className='item__name'>Shipping:</span>
@@ -87,7 +97,10 @@ export default function CartPage() {
 
               <div className='item'>
                 <span className='item__name'>Total:</span>
-                <span className='item__price'>${totalPrice + shippingCost}</span>
+                <span className='item__price'>
+                  {currencySign}
+                  {(totalPrice + shippingCost).toFixed(2)}
+                </span>
               </div>
             </div>
             <Button

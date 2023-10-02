@@ -11,8 +11,9 @@ import {
   removeFromCart,
 } from '@/context/features/cart/cartSlice';
 import { useGetOneProductQuery } from '@/context/services/productsApi';
+import useChangeCurrency from '@/hooks/useChangeCurrency';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
-import { calculateOriginal } from '@/utils/calculateOriginalPrice';
+import { ProductType } from '@/types/productsType';
 import { calculateRating } from '@/utils/calculateRating';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -23,21 +24,26 @@ export default function ProductPage() {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetOneProductQuery(id.toString());
   const [currentImage, setCurrentImage] = useState(0);
-  const originalPrice = data && calculateOriginal(data.price, data.discountPercentage);
   const { cartItems } = useTypedSelector((state) => state.cart);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
-  const [chosenQuantity, setChosenQuantity] = useState(0);
+  const [chosenQuantity, setChosenQuantity] = useState(1);
   const dispatch = useDispatch();
   const tags = [data?.brand, data?.category, data?.title.split(' ')[0]];
   const [transformValue, setTransformValue] = useState(0);
+  const { productPrice, originalPrice, currencySign } = useChangeCurrency(data);
+
+  const productData: ProductType = {
+    ...data,
+    price: productPrice,
+  };
 
   function addToBag() {
     if (data) {
       if (!isAddedToBag) {
-        dispatch(addToCart({ ...data, chosenQuantity }));
+        dispatch(addToCart({ ...productData, chosenQuantity }));
       } else {
         setChosenQuantity(0);
-        dispatch(removeFromCart({ ...data, chosenQuantity }));
+        dispatch(removeFromCart({ ...productData, chosenQuantity }));
       }
     }
     setIsAddedToBag(!isAddedToBag);
@@ -58,7 +64,7 @@ export default function ProductPage() {
   }
 
   function subtractQuantity() {
-    if (data && chosenQuantity > 0) {
+    if (data && chosenQuantity > 1) {
       setChosenQuantity(chosenQuantity - 1);
       dispatch(
         extractAmount({
@@ -131,8 +137,14 @@ export default function ProductPage() {
                   <span className='rating'>Rating: {data.rating}</span>
                 </div>
                 <div className='price-info'>
-                  <span className='original-price'>${originalPrice?.toFixed(2)}</span>
-                  <span className='discounted-price'>${data.price}</span>
+                  <span className='original-price'>
+                    {currencySign}
+                    {originalPrice?.toFixed(2)}
+                  </span>
+                  <span className='discounted-price'>
+                    {currencySign}
+                    {productPrice?.toFixed(2)}
+                  </span>
                   <span className='discount'>{data.discountPercentage}% Off</span>
                 </div>
               </div>
