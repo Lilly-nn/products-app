@@ -4,4 +4,5 @@ export type CartType = {
     cartItems: CartProductType[];
     totalItemsAmount: number;
     totalPrice: number;
+    chosenCurrency: string;
 }

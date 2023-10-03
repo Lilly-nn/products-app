@@ -12,11 +12,8 @@ export default function ProductMiniCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
   const { productPrice, currencySign } = useChangeCurrency(product);
-  const productWithCurrency = {
-    ...product,
-    price: productPrice,
-  };
-  const addToBag = useAddToCart({ product: productWithCurrency, isAddedToBag, setIsAddedToBag });
+
+  const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
 
   function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -37,7 +34,7 @@ export default function ProductMiniCard({ ...product }: ProductType) {
       <div className='product__mini-card-content'>
         <span className='product__mini-card-title'>{product.title}</span>
         <span className='product__mini-card-price'>
-          {currencySign}
+          {currencySign !== 'UAH' ? currencySign : ''}
           {productPrice?.toFixed(2)}
         </span>
         <span className='product__mini-card-rating'>rating: {product.rating}</span>

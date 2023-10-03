@@ -3,18 +3,22 @@ import Button from '@/components/UI/button/Button';
 import Input from '@/components/UI/input/Input';
 import { addAmount, extractAmount, removeFromCart } from '@/context/features/cart/cartSlice';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { currencyRates } from '@/info/currency/currencyRates';
 import { CartProductType } from '@/types/productsType';
+import { convertFromUSD } from '@/utils/convertCurrencies';
 import { useRouter } from 'next/navigation';
 import { GrFormClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 
 export default function CartPage() {
   const { cartItems, totalPrice } = useTypedSelector((state) => state.cart);
-  const { chosenCurrency } = useTypedSelector((state) => state.currency);
+  const { chosenCurrency } = useTypedSelector((state) => state.cart);
   const currencySign = chosenCurrency === 'UAH' ? 'UAH' : chosenCurrency === 'EUR' ? '€' : '$';
   const shippingCost = 0;
   const router = useRouter();
   const dispatch = useDispatch();
+  const currency = currencyRates.find((el) => el.hasOwnProperty(chosenCurrency));
+  const currentCurrency = currency && currency[chosenCurrency];
 
   return (
     <section className='cart__section'>
@@ -43,8 +47,10 @@ export default function CartPage() {
                       </div>
                       <div className='price'>
                         <span>
-                          {currencySign}
-                          {item.price.toFixed(2)}
+                          {currencySign !== 'UAH' ? currencySign : ''}
+                          {chosenCurrency !== 'USD' && currentCurrency
+                            ? convertFromUSD(item.price, currentCurrency).toFixed(2)
+                            : item.price}
                         </span>
                       </div>
                       <div className='quantity-info'>
@@ -56,8 +62,13 @@ export default function CartPage() {
                       </div>
                       <div className='total'>
                         <span className='font-medium'>
-                          {currencySign}
-                          {(item.price * item.chosenQuantity).toFixed(2)}
+                          {currencySign !== 'UAH' ? currencySign : ''}
+                          {chosenCurrency !== 'USD' && currentCurrency
+                            ? convertFromUSD(
+                                item.price * item.chosenQuantity,
+                                currentCurrency
+                              ).toFixed(2)
+                            : item.price * item.chosenQuantity}
                         </span>
                       </div>
                       <button className='close' onClick={() => dispatch(removeFromCart(item))}>
@@ -84,7 +95,7 @@ export default function CartPage() {
               <div className='item'>
                 <span className='item__name'>Subtotal:</span>
                 <span className='item__price'>
-                  {currencySign}
+                  {currencySign !== 'UAH' ? currencySign : ''}
                   {totalPrice.toFixed(2)}
                 </span>
               </div>

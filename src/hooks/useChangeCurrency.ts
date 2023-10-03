@@ -4,8 +4,8 @@ import { convertFromUSD } from '@/utils/convertCurrencies';
 import { useTypedSelector } from './useTypedSelector';
 import { ProductType } from '@/types/productsType';
 
-export default function useChangeCurrency(data: ProductType) {
-    const { chosenCurrency } = useTypedSelector((state) => state.currency);
+export default function useChangeCurrency(data: ProductType | undefined) {
+    const { chosenCurrency } = useTypedSelector((state) => state.cart);
     const currency = currencyRates.filter((item) => item.hasOwnProperty(chosenCurrency));
     const productPrice =
         data && chosenCurrency !== 'USD'

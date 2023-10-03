@@ -9,12 +9,11 @@ import Link from 'next/link';
 import SearchInput from './SearchInput';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
-import { changeCurrency } from '@/context/features/currency/currencySlice';
+import { changeCurrency } from '@/context/features/cart/cartSlice';
 
 export default function Header() {
   const [userId, setUserId] = useState<string | null>(null);
   const dispatch = useDispatch();
-  const { cartItems } = useTypedSelector((state) => state.cart);
 
   useEffect(() => {
     setUserId(localStorage.getItem('user_id'));
@@ -22,7 +21,7 @@ export default function Header() {
 
   const { isAuthorized } = useTypedSelector((state) => state.user);
   const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
-  const { chosenCurrency } = useTypedSelector((state) => state.currency);
+  const { chosenCurrency } = useTypedSelector((state) => state.cart);
   const currencySign = chosenCurrency === 'UAH' ? 'UAH' : chosenCurrency === 'EUR' ? '€' : '$';
   return (
     <header className='header'>
@@ -38,13 +37,11 @@ export default function Header() {
             <select>
               <option>Eng</option>
             </select>
-            {!cartItems.length && (
-              <select onChange={(e) => dispatch(changeCurrency(e.target.value))}>
-                <option value='USD'>USD</option>
-                <option value='EUR'>EUR</option>
-                <option value='UAH'>UAH</option>
-              </select>
-            )}
+            <select onChange={(e) => dispatch(changeCurrency(e.target.value))}>
+              <option value='USD'>USD</option>
+              <option value='EUR'>EUR</option>
+              <option value='UAH'>UAH</option>
+            </select>
 
             {userId || isAuthorized ? (
               <Link className='link__sign-in' href={`/account/${userId}`}>
@@ -75,7 +72,7 @@ export default function Header() {
               <div className='cart-icon__info'>
                 <span className='title'>Shopping cart:</span>
                 <span className='total'>
-                  {currencySign}
+                  {currencySign !== 'UAH' ? currencySign : ''}
                   {totalPrice.toFixed(2)}
                 </span>
               </div>

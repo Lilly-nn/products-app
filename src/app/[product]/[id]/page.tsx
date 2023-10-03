@@ -32,18 +32,13 @@ export default function ProductPage() {
   const [transformValue, setTransformValue] = useState(0);
   const { productPrice, originalPrice, currencySign } = useChangeCurrency(data);
 
-  const productData: ProductType = {
-    ...data,
-    price: productPrice,
-  };
-
   function addToBag() {
     if (data) {
       if (!isAddedToBag) {
-        dispatch(addToCart({ ...productData, chosenQuantity }));
+        dispatch(addToCart({ ...data, chosenQuantity }));
       } else {
-        setChosenQuantity(0);
-        dispatch(removeFromCart({ ...productData, chosenQuantity }));
+        setChosenQuantity(1);
+        dispatch(removeFromCart({ ...data, chosenQuantity }));
       }
     }
     setIsAddedToBag(!isAddedToBag);
@@ -100,11 +95,15 @@ export default function ProductPage() {
             <div className='product__img'>
               <div className='images'>
                 <IoIosArrowDown
-                  className={`arrow-down arrow ${transformValue <= -88 ? 'disabled' : ''}`}
+                  className={`arrow-down arrow ${
+                    transformValue <= -88 || data.images.length <= 4 ? 'disabled' : ''
+                  }`}
                   onClick={() => transformValue > -88 && setTransformValue(transformValue - 88)}
                 />
                 <IoIosArrowUp
-                  className={`arrow-up arrow ${transformValue >= 0 ? 'disabled' : ''}`}
+                  className={`arrow-up arrow ${
+                    transformValue >= 0 || data.images.length <= 4 ? 'disabled' : ''
+                  }`}
                   onClick={() => transformValue < 0 && setTransformValue(transformValue + 88)}
                 />
                 <div className='container'>

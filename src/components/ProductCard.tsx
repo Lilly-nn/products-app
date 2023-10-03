@@ -16,17 +16,13 @@ export default function ProductCard({ ...product }: ProductType) {
   const [isAddedToBag, setIsAddedToBag] = useState(false);
   const stars = calculateRating(product.rating);
   const { productPrice, currencySign } = useChangeCurrency(product);
-  const productWithCurrency = {
-    ...product,
-    price: productPrice,
-  };
 
   async function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
     setIsLiked(!isLiked);
   }
 
-  const addToBag = useAddToCart({ product: productWithCurrency, isAddedToBag, setIsAddedToBag });
+  const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
 
   return (
     <Link

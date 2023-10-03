@@ -1,11 +1,14 @@
+import { currencyRates } from "@/info/currency/currencyRates";
 import { CartType } from "@/types/cartType";
 import { CartProductType, ProductType } from "@/types/productsType";
+import { convertFromUSD } from "@/utils/convertCurrencies";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: CartType = {
     cartItems: [],
     totalItemsAmount: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    chosenCurrency: 'USD'
 }
 
 const cartSlice = createSlice({
@@ -44,11 +47,16 @@ const cartSlice = createSlice({
             cartSlice.caseReducers.calculateTotalPrice(state);
         },
         calculateTotalPrice: (state: CartType) => {
-            const itemsTotal = state.cartItems.map(item => item.price * item.chosenQuantity);
+            const index = state.chosenCurrency === "EUR" ? 0 : 1;
+            const itemsTotal = state.cartItems.map(item => state.chosenCurrency == "USD" ? item.price * item.chosenQuantity : convertFromUSD((item.price * item.chosenQuantity), currencyRates[index][state.chosenCurrency]));
             state.totalPrice = itemsTotal.length > 0 ? itemsTotal.reduce((total, amount) => total + amount) : 0;
+        },
+        changeCurrency: (state, action: PayloadAction<string>) => {
+            state.chosenCurrency = action.payload;
+            cartSlice.caseReducers.calculateTotalPrice(state);
         }
     }
 })
 
-export const { addToCart, addAmount, extractAmount, removeFromCart } = cartSlice.actions;
+export const { addToCart, addAmount, extractAmount, removeFromCart, changeCurrency } = cartSlice.actions;
 export default cartSlice.reducer;
