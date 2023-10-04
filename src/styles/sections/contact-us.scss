@@ -1,0 +1,68 @@
+.contact__section {
+  .info__section {
+    padding: 80px 0;
+    display: flex;
+    gap: 24px;
+  }
+  .info {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 300px;
+    padding: 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 550px;
+  }
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 24px;
+    &:not(:last-child) {
+      border-bottom: 1px solid lightgray;
+      padding-bottom: 24px;
+    }
+    img {
+      margin-bottom: 16px;
+    }
+  }
+  .message {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+    padding: 50px;
+    width: 100%;
+    h6 {
+      color: #1a1a1a;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    p {
+      color: #808080;
+      font-size: 14px;
+      font-weight: 400;
+      max-width: 486px;
+    }
+    form {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      input,
+      textarea {
+        padding: 14px 16px;
+        border-radius: 6px;
+        border: 1px solid lightgray;
+        &:focus {
+          outline: 1px solid $primary;
+        }
+      }
+      button {
+        width: fit-content;
+      }
+    }
+  }
+}
