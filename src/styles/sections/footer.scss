@@ -16,6 +16,9 @@
     display: flex;
     align-items: center;
     gap: 24px;
+    button {
+      background: $primary;
+    }
     .cont {
       border: none;
       background: #333;
