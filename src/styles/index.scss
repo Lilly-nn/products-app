@@ -1,20 +1,4 @@
-@import '../styles/normalize/normalize.css';
-@import '../styles/normalize/reset.css';
-@import '../styles/general/variables.scss';
-@import '../styles/sections/header.scss';
-@import '../styles/sections/categories.scss';
-@import '../styles/sections/products.scss';
-@import '../styles/sections/members.scss';
-@import '../styles/sections/testimonials.scss';
-@import '../styles/sections/footer.scss';
-@import '../styles/sections/hot-deals.scss';
-@import '../styles/sections/authorize.scss';
-@import '../styles/sections/categoriesSection.scss';
-@import '../styles/sections/cart.scss';
-@import '../styles/sections/product.scss';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './imports.scss';
 
 body::-webkit-scrollbar {
   width: 10px;
