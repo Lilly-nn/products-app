@@ -17,12 +17,13 @@ export async function sendMail(email, subject, messageText) {
     text: messageText,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      console.log('Email Sent');
-      return true;
-    }
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (err, response) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(response);
+      }
+    });
   });
 }
