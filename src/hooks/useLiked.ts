@@ -1,14 +1,24 @@
 import { ProductType } from "@/types/productsType";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useGetUserId from "./useGetUserId";
 
 export function useGetLiked() {
+    const userId = useGetUserId();
     const [likedProducts, setLikedProducts] = useState<ProductType[]>([]);
-    const userId = localStorage.getItem('user_id');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     async function getLikedProducts() {
-        const res = await axios.get('/api/liked/' + userId);
-        setLikedProducts(res.data);
+        try {
+            const res = await axios.get('/api/liked/' + userId);
+            setLikedProducts(res.data);
+        } catch (err) {
+            setError(true)
+        } finally {
+            setLoading(false)
+        }
+
     }
 
     useEffect(() => {
@@ -17,11 +27,11 @@ export function useGetLiked() {
         }
     }, [userId])
 
-    return likedProducts;
+    return { likedProducts, loading, error };
 }
 
 export function useCheckLiked(setIsLiked: (arg: boolean) => void, id: number) {
-    const likedProducts = useGetLiked();
+    const { likedProducts } = useGetLiked();
     useEffect(() => {
         if (likedProducts.length > 0) {
             const isLiked = likedProducts.some((el) => el.id === id);

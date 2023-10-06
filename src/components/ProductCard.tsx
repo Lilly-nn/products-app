@@ -12,19 +12,21 @@ import Stars from './UI/Stars';
 import useChangeCurrency from '@/hooks/useChangeCurrency';
 import { useCheckLiked, useGetLiked } from '@/hooks/useLiked';
 import axios from 'axios';
+import useGetUserId from '@/hooks/useGetUserId';
 
 export default function ProductCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
   const stars = calculateRating(product.rating);
   const { productPrice, currencySign } = useChangeCurrency(product);
+  const userId = useGetUserId();
 
   async function addToLiked(e: React.MouseEvent<HTMLDivElement>, product: ProductType) {
     e.preventDefault();
     setIsLiked(!isLiked);
     try {
       const res = await axios.put('/api/liked', {
-        userId: localStorage.getItem('user_id'),
+        userId,
         product,
       });
     } catch (err) {

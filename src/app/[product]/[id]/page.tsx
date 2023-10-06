@@ -12,6 +12,7 @@ import {
 } from '@/context/features/cart/cartSlice';
 import { useGetOneProductQuery } from '@/context/services/productsApi';
 import useChangeCurrency from '@/hooks/useChangeCurrency';
+import useGetUserId from '@/hooks/useGetUserId';
 import { useCheckLiked, useGetLiked } from '@/hooks/useLiked';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { ProductType } from '@/types/productsType';
@@ -25,6 +26,7 @@ import { useDispatch } from 'react-redux';
 export default function ProductPage() {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetOneProductQuery(id.toString());
+  const userId = useGetUserId();
   const [currentImage, setCurrentImage] = useState(0);
   const { cartItems } = useTypedSelector((state) => state.cart);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
@@ -77,7 +79,7 @@ export default function ProductPage() {
     setIsLiked(!isLiked);
     try {
       await axios.put('/api/liked', {
-        userId: localStorage.getItem('user_id'),
+        userId,
         product,
       });
     } catch (err) {

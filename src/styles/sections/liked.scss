@@ -1,0 +1,17 @@
+.liked {
+  &__section {
+    .title {
+      color: #1a1a1a;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 600;
+    }
+  }
+  &__items {
+    margin-top: 32px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}
