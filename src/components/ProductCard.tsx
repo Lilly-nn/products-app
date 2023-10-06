@@ -10,6 +10,8 @@ import CartSvg from './UI/CartSvg';
 import LikeSvg from './UI/LikeSvg';
 import Stars from './UI/Stars';
 import useChangeCurrency from '@/hooks/useChangeCurrency';
+import { useCheckLiked, useGetLiked } from '@/hooks/useLiked';
+import axios from 'axios';
 
 export default function ProductCard({ ...product }: ProductType) {
   const [isLiked, setIsLiked] = useState(false);
@@ -17,12 +19,22 @@ export default function ProductCard({ ...product }: ProductType) {
   const stars = calculateRating(product.rating);
   const { productPrice, currencySign } = useChangeCurrency(product);
 
-  async function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
+  async function addToLiked(e: React.MouseEvent<HTMLDivElement>, product: ProductType) {
     e.preventDefault();
     setIsLiked(!isLiked);
+    try {
+      const res = await axios.put('/api/liked', {
+        userId: localStorage.getItem('user_id'),
+        product,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
+
+  useCheckLiked(setIsLiked, product.id);
 
   return (
     <Link
@@ -30,7 +42,7 @@ export default function ProductCard({ ...product }: ProductType) {
       href={`/${product.category}/${product.id}`}
       key={product.id}
       className='product__card'>
-      <div className={`like ${isLiked ? 'active' : ''}`} onClick={(e) => addToLiked(e)}>
+      <div className={`like ${isLiked ? 'active' : ''}`} onClick={(e) => addToLiked(e, product)}>
         <LikeSvg />
       </div>
 

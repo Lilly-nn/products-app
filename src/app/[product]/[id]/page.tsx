@@ -12,9 +12,11 @@ import {
 } from '@/context/features/cart/cartSlice';
 import { useGetOneProductQuery } from '@/context/services/productsApi';
 import useChangeCurrency from '@/hooks/useChangeCurrency';
+import { useCheckLiked, useGetLiked } from '@/hooks/useLiked';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { ProductType } from '@/types/productsType';
 import { calculateRating } from '@/utils/calculateRating';
+import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
@@ -26,9 +28,10 @@ export default function ProductPage() {
   const [currentImage, setCurrentImage] = useState(0);
   const { cartItems } = useTypedSelector((state) => state.cart);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [chosenQuantity, setChosenQuantity] = useState(1);
   const dispatch = useDispatch();
-  const tags = [data?.brand, data?.category, data?.title.split(' ')[0]];
+  const tags = [...new Set([data?.brand, data?.category, data?.title.split(' ')[0]])];
   const [transformValue, setTransformValue] = useState(0);
   const { productPrice, originalPrice, currencySign } = useChangeCurrency(data);
 
@@ -69,6 +72,20 @@ export default function ProductPage() {
       );
     }
   }
+
+  async function addToLiked(product: ProductType) {
+    setIsLiked(!isLiked);
+    try {
+      await axios.put('/api/liked', {
+        userId: localStorage.getItem('user_id'),
+        product,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useCheckLiked(setIsLiked, Number(id));
 
   useEffect(() => {
     if (data) {
@@ -172,7 +189,9 @@ export default function ProductPage() {
                       type='button'
                       onClick={addToBag}
                     />
-                    <div className='like'>
+                    <div
+                      className={`like ${isLiked ? 'active' : ''}`}
+                      onClick={() => addToLiked(data)}>
                       <LikeSvg />
                     </div>
                   </div>

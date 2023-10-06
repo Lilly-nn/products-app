@@ -5,20 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import CartSvg from '../UI/CartSvg';
-import LikeSvg from '../UI/LikeSvg';
 import useChangeCurrency from '@/hooks/useChangeCurrency';
 
 export default function ProductMiniCard({ ...product }: ProductType) {
-  const [isLiked, setIsLiked] = useState(false);
   const [isAddedToBag, setIsAddedToBag] = useState(false);
   const { productPrice, currencySign } = useChangeCurrency(product);
 
   const addToBag = useAddToCart({ product, isAddedToBag, setIsAddedToBag });
 
-  function addToLiked(e: React.MouseEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsLiked(!isLiked);
-  }
   return (
     <Link
       href={`/${product.category}/${product.id}`}
@@ -46,9 +40,6 @@ export default function ProductMiniCard({ ...product }: ProductType) {
               addToBag();
             }}>
             <CartSvg />
-          </div>
-          <div className={`${isLiked ? 'active' : ''}`} onClick={addToLiked}>
-            <LikeSvg />
           </div>
         </div>
       </div>

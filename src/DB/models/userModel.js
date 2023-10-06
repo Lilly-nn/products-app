@@ -10,6 +10,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  liked: {
+    type: Array,
+    default: [],
+  },
 });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

@@ -121,13 +121,16 @@
   gap: 12px;
   align-items: center;
   border: 1px solid lightgray;
+  position: relative;
   &:hover {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    .product__mini-card-add {
+      opacity: 1;
+    }
   }
   &-content {
     display: flex;
     flex-direction: column;
-    position: relative;
   }
 
   &-title {
@@ -150,14 +153,10 @@
     position: absolute;
     display: flex;
     top: 35%;
-    width: 100%;
+    opacity: 0;
+    right: 25px;
     height: 51px;
     gap: 12px;
-    background: white;
-    opacity: 0;
-    &:hover {
-      opacity: 1;
-    }
     div {
       border: 1px solid #f2f2f2;
       border-radius: 50%;
