@@ -1,10 +1,13 @@
 'use client';
 import ProductCard from '@/components/ProductCard';
+import useCheckAuthorized from '@/hooks/useCheckUser';
 import { useGetLiked } from '@/hooks/useLiked';
 import React from 'react';
 
 export default function LikedPage() {
   const { likedProducts, loading, error } = useGetLiked();
+
+  useCheckAuthorized();
 
   return (
     <section className='liked__section container'>

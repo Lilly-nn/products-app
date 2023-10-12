@@ -8,9 +8,11 @@ export function useGetLiked() {
     const [likedProducts, setLikedProducts] = useState<ProductType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    console.log(userId)
 
     async function getLikedProducts() {
         try {
+            console.log(userId)
             const res = await axios.get('/api/liked/' + userId);
             setLikedProducts(res.data);
         } catch (err) {
