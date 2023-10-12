@@ -32,6 +32,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
     "react-redux": "^8.1.2",
+    "redux-persist": "^6.0.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2",
     "use-debounce": "^9.0.4",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.4",
     "@types/jsonwebtoken": "^9.0.3",
+    "@types/redux-persist": "^4.3.1",
     "sass": "^1.67.0"
   }
 }

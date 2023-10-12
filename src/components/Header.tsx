@@ -13,16 +13,16 @@ import { changeCurrency } from '@/context/features/cart/cartSlice';
 
 export default function Header() {
   const [userId, setUserId] = useState<string | null>(null);
+  const { isAuthorized } = useTypedSelector((state) => state.user);
+  const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
+  const { chosenCurrency } = useTypedSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const currencySign = chosenCurrency === 'UAH' ? 'UAH' : chosenCurrency === 'EUR' ? '€' : '$';
 
   useEffect(() => {
     setUserId(localStorage.getItem('user_id'));
   }, []);
 
-  const { isAuthorized } = useTypedSelector((state) => state.user);
-  const { totalItemsAmount, totalPrice } = useTypedSelector((state) => state.cart);
-  const { chosenCurrency } = useTypedSelector((state) => state.cart);
-  const currencySign = chosenCurrency === 'UAH' ? 'UAH' : chosenCurrency === 'EUR' ? '€' : '$';
   return (
     <header className='header'>
       <div className='header__container container'>
@@ -37,7 +37,9 @@ export default function Header() {
             <select>
               <option>Eng</option>
             </select>
-            <select onChange={(e) => dispatch(changeCurrency(e.target.value))}>
+            <select
+              value={chosenCurrency}
+              onChange={(e) => dispatch(changeCurrency(e.target.value))}>
               <option value='USD'>USD</option>
               <option value='EUR'>EUR</option>
               <option value='UAH'>UAH</option>

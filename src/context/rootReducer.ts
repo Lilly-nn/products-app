@@ -4,9 +4,18 @@ import cartReducer from "./features/cart/cartSlice";
 import categoryReducer from "./features/categories/categoriesSlice";
 import visibleReducer from "./features/visible/visibleSlice";
 import { productsApi } from "./services/productsApi";
+import { persistReducer } from 'redux-persist';
+import { storage } from "./storage.config.js";
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, cartReducer)
 
 export const rootReducer = combineReducers({
-    cart: cartReducer,
+    cart: persistedReducer,
     user: userReducer,
     category: categoryReducer,
     visible: visibleReducer,
