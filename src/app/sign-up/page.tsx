@@ -1,5 +1,4 @@
 'use client';
-import Button from '@/components/UI/button/Button';
 import RegisterSection from '@/components/authorize/RegisterSection';
 import SignInSection from '@/components/authorize/SignInSection';
 import { useState } from 'react';

@@ -55,9 +55,9 @@ export default function SearchInput() {
         </button>
       </div>
       {isVisible && (
-        <div className='flex flex-col gap-y bg-gray-200 z-10 mt-2 absolute w-full rounded-md shadow-md'>
+        <div className='flex flex-col gap-y bg-gray-100 z-10 mt-2 absolute w-full rounded-md shadow-md'>
           {filtered &&
-            filtered.slice(0, 5).map((page, idx) => (
+            filtered.slice(0, 5).map((page) => (
               <Link
                 tabIndex={0}
                 onClick={() => setSearchValue('')}

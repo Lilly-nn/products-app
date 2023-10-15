@@ -38,6 +38,7 @@ export default function useCheckAuthorized() {
             router.push('/sign-up');
             return;
         }
+
         getUser();
     }, []);
     return { loading, error }
